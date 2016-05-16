@@ -1,7 +1,8 @@
 // Matrices.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
+#include <stdlib.h>
+#include <stdio.h>
 #pragma warning(disable:4996)
 
 int **allocateMatrix(int matrixDim)
@@ -73,24 +74,34 @@ void matrix_mult(int **A, int **B, int **S, int size)
 	for (int i = 0; i < size; i++)
 	{
 		count = 0;
-		for (int j = 0; j < size; j++)
-			count += A[i + j][i] * B[i + j][j];
-
-		printf("count = %d\n" , count);
+		for (int r = 0; r < size; r++)
+		{
+			S[r][i] = 0;
+			for (int j = 0; j < size; j++)
+				S[r][i] += A[r][j] * B[j][i];
+		}
 	}
 }
 
-void read_mat(int** matrix)
+void read_mat(int** matrix, int size)
 {
 	/* Maximum name size + 1. */
 	#define MAX_NAME_SZ 256
+
+	char * pch;
+	int i = 0;
+	int j = 0;
+	long value;
+	int count = 0;
+
 	/* Allocate memory and check if okay. */
 	char *input = malloc(MAX_NAME_SZ);
 	if (input == NULL) {
 		printf("No memory\n");
-		return 1;
+		return 0;
 	}
-		
+	init_matrix(matrix, size, 0);
+
 	/* Get the name, with size limit. */
 	fgets(input, MAX_NAME_SZ, stdin);
 
@@ -98,53 +109,93 @@ void read_mat(int** matrix)
 	if ((strlen(input)>0) && (input[strlen(input) - 1] == '\n'))
 		input[strlen(input) - 1] = '\0';
 
-	char * pch;	
 	pch = strtok(input, " ");
+
 	while (pch != NULL)
 	{
-		printf("%s ", pch);
-
+		if (count == (size * size))
+			break;
+		//printf("%s ", pch);
+		if (checkNumber(pch, &value) == 0)
+		{
+			printf("Invalid input");
+			return 0;
+		}
+		count++;
 		// here we need to fill the matrix with those tokens
-
+		if (i == size)
+		{
+			j++;
+			i = 0;
+			matrix[i][j] = (int)value;
+		}
+		else {
+			matrix[i][j] = (int)value;
+		}
+		i++;
 		pch = strtok(NULL, " ,.-");
 	}
 	/* Free memory and exit. */
 	free(input);
+
+	return 1;
+}
+
+int checkNumber(char *some_string, long *value)
+{
+ 
+	char *endptr;
+	*value = strtol(some_string, &endptr, 10);
+
+	if (endptr == some_string)
+	{
+		// Not a valid number at all
+		return 0;
+	}
+	else if (*endptr != '\0')
+	{
+		return 0;
+	}
+	else
+	{
+		// String is a number
+		return 1;
+	}
+}
+
+void init_identity(int ** matrix, int size)
+{
+	init_matrix(matrix, size, 0);
+	for (int i = 0; i < size; i++)
+	{
+		matrix[i][i] = 1;
+	}
+
 }
 int main(int argc, char* argv[])
 {
 	
 
+
 	int **MAT_A = allocateMatrix(4);
-	read_mat(MAT_A);
-	return 1;
+	int **MAT_B = allocateMatrix(4);
+	int **R = allocateMatrix(4);
+
+	read_mat(MAT_A, 4);
+	print_matrix(MAT_A, 4);
+
+	init_identity(MAT_B, 4);
+	print_matrix(MAT_B, 4);
+
+	matrix_mult(MAT_A, MAT_B, R, 4);
+	print_matrix(R, 4);
 	
-	int ** A = allocateMatrix(3);
-	int ** B = allocateMatrix(3);
-	int ** S = allocateMatrix(3);
+	 
+	free_matrix(MAT_A, 4);
+	free_matrix(MAT_B, 4);
+	free_matrix(R,4);
 
-	init_matrix(A, 3, 1);
-	init_matrix(B, 3, 1);
-
-	S = matrix_sum(A, B, S, 3);
-	print_matrix(S, 3);
-
-	matrix_sub(A, B, S, 3);
-	print_matrix(S, 3);
-
-	free_matrix(A,3);
-	free_matrix(B,3);
-	free_matrix(S,3);
-
-	int ** X = allocateMatrix(2);
-	int ** Y = allocateMatrix(2);
-	int ** R = allocateMatrix(2);
-
-	matrix_mult(X, Y, R , 2);
-
-	free_matrix(X, Y, R);
 	
-
 	return 0;
 }
 
