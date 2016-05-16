@@ -3,7 +3,21 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "matrices.h"
+#include "inputParser.h"
+#include "errors.h"
+
 #pragma warning(disable:4996)
+
+
+int **MAT_A = NULL;
+int **MAT_B = NULL;
+int **MAT_C = NULL;
+int **MAT_D = NULL;
+int **MAT_E = NULL;
+int **MAT_F = NULL;
+
+int **readMatrixPtr = NULL;
 
 int **allocateMatrix(int matrixDim)
 {
@@ -15,7 +29,7 @@ int **allocateMatrix(int matrixDim)
 	return matrix;
 }
 
-int **matrix_sum(int  **matrixA, int  **matrixB, int ** matOutput, int matrixDim)
+int **matrix_add(int  **matrixA, int  **matrixB, int ** matOutput, int matrixDim)
 {
 	 
 	for (int i = 0; i < matrixDim; i++)
@@ -48,6 +62,7 @@ void init_matrix(int **A, int dimSize, int value)
 
 void print_matrix(int **S, int size)
 {
+	printf("\n");
 	for (int i = 0; i < size; i++)
 	{
 		for (int j = 0; j < size; j++)
@@ -60,9 +75,12 @@ void print_matrix(int **S, int size)
 
 void free_matrix(int **A, int size)
 {
+	if (A == NULL)
+		return;
 	for (int i = 0; i < size; i++)
 	{
-		free(A[i]);
+		if (A[i] != NULL)
+			free(A[i]);
 	}
 	free(A);
 }
@@ -133,7 +151,7 @@ void read_mat(int** matrix, int size)
 			matrix[i][j] = (int)value;
 		}
 		i++;
-		pch = strtok(NULL, " ,.-");
+		pch = strtok(NULL, " ");
 	}
 	/* Free memory and exit. */
 	free(input);
@@ -172,15 +190,45 @@ void init_identity(int ** matrix, int size)
 	}
 
 }
+
+void InitializeMatrices(int size)
+{
+	MAT_A = allocateMatrix(size);
+	MAT_B = allocateMatrix(size);
+	MAT_C = allocateMatrix(size);
+	MAT_D = allocateMatrix(size);
+	MAT_E = allocateMatrix(size);
+	MAT_F = allocateMatrix(size);
+}
+void Close(int size)
+{
+	free_matrix(MAT_A, size);
+	free_matrix(MAT_B, size);
+	free_matrix(MAT_C, size);
+	free_matrix(MAT_D, size);
+	free_matrix(MAT_E, size);
+	free_matrix(MAT_F, size);
+}
 int main(int argc, char* argv[])
 {
 	
-
-
-	int **MAT_A = allocateMatrix(4);
-	int **MAT_B = allocateMatrix(4);
-	int **R = allocateMatrix(4);
-
+	int r;
+	InitializeParser();
+	while (1)
+	{
+		if ((r = ReadUserInput()) < 0)
+		{
+			printError(r);
+		} else
+		if (r == STOP_PROGRAM)
+		{
+			Close(matrix_dim);
+			return 1;
+		}
+	}
+	 
+	 
+	/*
 	read_mat(MAT_A, 4);
 	print_matrix(MAT_A, 4);
 
@@ -194,7 +242,7 @@ int main(int argc, char* argv[])
 	free_matrix(MAT_A, 4);
 	free_matrix(MAT_B, 4);
 	free_matrix(R,4);
-
+	*/
 	
 	return 0;
 }

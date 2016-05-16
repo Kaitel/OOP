@@ -18,9 +18,21 @@
     <ClCompile Include="Matrices.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="inputParser.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="errors.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="matrices.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inputParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="errors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

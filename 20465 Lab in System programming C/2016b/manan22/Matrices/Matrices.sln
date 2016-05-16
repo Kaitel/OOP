@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Matrices", "Matrices\Matrices.vcxproj", "{AFEBBB80-FB8B-49A2-8CBE-CDFEAFC47B1B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hash_functions", "..\..\..\..\..\projects\c\hash_functions\hash_functions\hash_functions.vcxproj", "{8C61B71F-D7EE-45D6-A5D3-44D36812282A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +17,10 @@ Global
 		{AFEBBB80-FB8B-49A2-8CBE-CDFEAFC47B1B}.Debug|Win32.Build.0 = Debug|Win32
 		{AFEBBB80-FB8B-49A2-8CBE-CDFEAFC47B1B}.Release|Win32.ActiveCfg = Release|Win32
 		{AFEBBB80-FB8B-49A2-8CBE-CDFEAFC47B1B}.Release|Win32.Build.0 = Release|Win32
+		{8C61B71F-D7EE-45D6-A5D3-44D36812282A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8C61B71F-D7EE-45D6-A5D3-44D36812282A}.Debug|Win32.Build.0 = Debug|Win32
+		{8C61B71F-D7EE-45D6-A5D3-44D36812282A}.Release|Win32.ActiveCfg = Release|Win32
+		{8C61B71F-D7EE-45D6-A5D3-44D36812282A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
