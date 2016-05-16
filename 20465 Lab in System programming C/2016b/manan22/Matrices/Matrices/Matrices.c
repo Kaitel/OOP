@@ -32,6 +32,9 @@ int **allocateMatrix(int matrixDim)
 int **matrix_add(int  **matrixA, int  **matrixB, int ** matOutput, int matrixDim)
 {
 	 
+	if (matrixA == NULL || matrixB == NULL || matOutput == NULL)
+		return NULL;
+
 	for (int i = 0; i < matrixDim; i++)
 		for (int j = 0; j < matrixDim; j++)
 	{
@@ -42,6 +45,8 @@ int **matrix_add(int  **matrixA, int  **matrixB, int ** matOutput, int matrixDim
 
 int **matrix_sub(int  **matrixA, int  **matrixB, int ** matOutput, int matrixDim)
 {	
+	if (matrixA == NULL || matrixB == NULL || matOutput == NULL)
+		return NULL;
 
 	for (int i = 0; i < matrixDim; i++)
 		for (int j = 0; j < matrixDim; j++)
@@ -53,6 +58,10 @@ int **matrix_sub(int  **matrixA, int  **matrixB, int ** matOutput, int matrixDim
 
 void init_matrix(int **A, int dimSize, int value)
 {
+
+	if (A == NULL)
+		return NULL;
+
 	for (int i = 0; i < dimSize; i++)
 		for (int j = 0; j < dimSize; j++)
 		{
@@ -62,6 +71,9 @@ void init_matrix(int **A, int dimSize, int value)
 
 void print_matrix(int **S, int size)
 {
+	if (S == NULL)
+		return ;
+
 	printf("\n");
 	for (int i = 0; i < size; i++)
 	{
@@ -87,6 +99,8 @@ void free_matrix(int **A, int size)
 
 void matrix_mult(int **A, int **B, int **S, int size)
 {
+	if (A == NULL || B == NULL || S == NULL)
+		return;
 
 	int count;
 	for (int i = 0; i < size; i++)
@@ -226,23 +240,7 @@ int main(int argc, char* argv[])
 			return 1;
 		}
 	}
-	 
-	 
-	/*
-	read_mat(MAT_A, 4);
-	print_matrix(MAT_A, 4);
 
-	init_identity(MAT_B, 4);
-	print_matrix(MAT_B, 4);
-
-	matrix_mult(MAT_A, MAT_B, R, 4);
-	print_matrix(R, 4);
-	
-	 
-	free_matrix(MAT_A, 4);
-	free_matrix(MAT_B, 4);
-	free_matrix(R,4);
-	*/
 	
 	return 0;
 }

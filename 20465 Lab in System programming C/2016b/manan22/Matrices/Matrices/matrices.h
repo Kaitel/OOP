@@ -1,5 +1,5 @@
 #ifndef _MATRICES_HEADER_FILE
-
+#define _MATRICES_HEADER_FILE
 
 #define matrix_dim 4 
 
@@ -21,7 +21,6 @@ extern int **MAT_D;
 extern int **MAT_E;
 extern int **MAT_F;
 extern int **readMatrixPtr;
-
 
 
 #endif 
