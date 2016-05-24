@@ -1,7 +1,6 @@
 // asembler2016bProject.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
 #include "cpu.h"
 #include "hashtable.h"
 
@@ -21,7 +20,7 @@ int LENGTH[] = { 6, -9, 15 };
 int K[] = { 2 };
  
 
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char* argv[])
 {
 
 	/*
