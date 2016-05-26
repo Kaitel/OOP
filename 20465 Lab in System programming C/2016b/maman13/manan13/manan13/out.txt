@@ -6,3 +6,7 @@ thirty three
 forty four
 fifty five
 thirteen
+two
+forty four
+one
+twelve

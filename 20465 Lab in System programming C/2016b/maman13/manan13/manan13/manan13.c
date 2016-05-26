@@ -207,11 +207,13 @@ int ReadInputFromUser(call_back pOutputFunc, char *FileName, char *OutputFileNam
 		pch = strtok(NULL, " ");
 	}
 	free(input);
+	return 1;
 }
 int ReadInputFromFile(call_back pOutputFunc, char *FileName, char *OutputFileName)
 {
 	char *pch;
 	long value;
+	char *p1; 
 	char input[1000];
 	FILE *handle = fopen(FileName, "r+t");
 	if (handle == NULL)
@@ -221,7 +223,13 @@ int ReadInputFromFile(call_back pOutputFunc, char *FileName, char *OutputFileNam
 
 	while (!feof(handle))
 	{
-		fgets(input, 1000, handle);
+		p1 = fgets(input, 1000, handle);
+		if (p1 == NULL)
+			break;
+		char *p = strchr(input, '\n');
+		if (p != NULL)
+			*p = NULL;
+
 		printf("%s\n", input);
 
 		pch = strtok(input, " ");
