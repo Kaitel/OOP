@@ -1,4 +1,4 @@
-﻿calcbilling
+﻿
 
 select Billing.fid, Billing.lname, sum(Billing.hours) as totalHours , sum(Billing.hours*lawyer.hbilling) as price from Billing   
 inner join lawyer 
@@ -6,7 +6,53 @@ on Billing.lname = lawyer.lname
 where Extract(month from Billing.bdate) >= 1 and Extract(year from Billing.bdate) = 2015
 group by Billing.fid , Billing.lname
 
+
+
+CREATE OR REPLACE FUNCTION calcbilling (month INTEGER, year INTEGER)
+RETURNS  TABLE(fid INTEGER , lname text, totalHours INTEGER, price INTEGER)
+AS 
+$$
+BEGIN
+select Billing.fid, Billing.lname, sum(Billing.hours) as totalHours , sum(Billing.hours*lawyer.hbilling) as price from Billing   
+inner join lawyer 
+on Billing.lname = lawyer.lname
+where Extract(month from Billing.bdate) >= month and Extract(year from Billing.bdate) = year
+group by Billing.fid , Billing.lname;
+
+END
+$$
+LANGUAGE plpgsql;
+
  
+create type some_type1 as (
+    fid     int, 
+    lname   varchar,
+    totalHours int,
+    price int
+);
+
+DROP FUNCTION calcbilling(integer,integer)
+
+create or replace function calcbilling(month int , year int) returns setof record as
+$$
+declare
+    r some_type1;
+begin
+    for r in	
+	select Billing.fid, Billing.lname, sum(Billing.hours) as totalHours , sum(Billing.hours*lawyer.hbilling) as price from Billing   
+	inner join lawyer 
+	on Billing.lname = lawyer.lname
+	where Extract(month from Billing.bdate) >= month and Extract(year from Billing.bdate) = year
+	group by Billing.fid , Billing.lname
+    loop
+    return next r;
+    end loop;
+    return;
+end; 
+$$
+LANGUAGE plpgsql;
+
+SELECT calcbilling(1, 2015)  
 
 
 select * from Billing
