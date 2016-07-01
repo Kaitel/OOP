@@ -20,6 +20,7 @@ INSERT INTO Client VALUES('arkady', '0524123133', 'Jerusalem');
 INSERT INTO Client VALUES('lital', '0514123133', 'tel-aviv');  
 
 
+
 INSERT INTO File VALUES(110323, 'Stolen', 'Stolen bag from old lady' , NULL , 'alphi' , 'Eli');  
 INSERT INTO File VALUES(120343, 'Killing', 'Mardring my panda' , NULL , 'noam' , 'Amir');  
 INSERT INTO File VALUES(120333, 'Stolen', 'Stolen car' , NULL , 'arkady' , 'Eli');  
@@ -47,6 +48,26 @@ INSERT INTO Billing VALUES(110323, '2-7-2016', 'Eli', 4 , 'reading the avidance'
 
 INSERT INTO LonFile VALUES(120343, 'Mor', 'adviser');  
 INSERT INTO LonFile VALUES(120333, 'Danny', 'must have second option');  
+
+
+INSERT INTO LonFile VALUES(120343, 'Alex', 'adviser');  
+INSERT INTO LonFile VALUES(120343, 'Eli', 'adviser');  
+
+INSERT INTO LonFile VALUES(120343, 'Amit', 'adviser');  
+INSERT INTO LonFile VALUES(120343, 'Ronen', 'adviser');  
+INSERT INTO LonFile VALUES(120343, 'Ben', 'adviser');  
+
+INSERT INTO LonFile VALUES(120343, 'Shalom', 'adviser');  
+INSERT INTO LonFile VALUES(120343, 'Danny', 'adviser');  
+INSERT INTO LonFile VALUES(120343, 'Amir', 'adviser');  
+
+INSERT INTO LonFile VALUES(120343, 'Yonaton', 'adviser');  
+INSERT INTO LonFile VALUES(120343, 'Shely', 'adviser');  
+INSERT INTO LonFile VALUES(120343, 'Mor', 'adviser');  
+
+INSERT INTO LonFile VALUES(120343, 'Dana', 'adviser');  
+INSERT INTO LonFile VALUES(120343, 'Karin', 'adviser');  
+
 
 
 Select * from Billing
