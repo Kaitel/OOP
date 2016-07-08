@@ -31,28 +31,48 @@ create type some_type1 as (
     price int
 );
 
+-- helper function to drop table when i change input types
 DROP FUNCTION calcbilling(integer,integer)
 
-create or replace function calcbilling(month int , year int) returns setof record as
+
+-- this is the function that we need to insert into the database
+create or replace function calcbilling(month int , year int) 
+returns table(fid int, lname varchar, totalHours bigint , price bigint) as
 $$
-declare
-    r some_type1;
-begin
-    for r in	
+BEGIN
+	RETURN QUERY
 	select Billing.fid, Billing.lname, sum(Billing.hours) as totalHours , sum(Billing.hours*lawyer.hbilling) as price from Billing   
 	inner join lawyer 
 	on Billing.lname = lawyer.lname
 	where Extract(month from Billing.bdate) >= month and Extract(year from Billing.bdate) = year
-	group by Billing.fid , Billing.lname
-    loop
-    return next r;
-    end loop;
-    return;
-end; 
+	group by Billing.fid , Billing.lname;
+ 
+END 
 $$
 LANGUAGE plpgsql;
 
-SELECT calcbilling(1, 2015)  
+-- execute the function to reterive results
+SELECT * from calcbilling(1, 2015)  
+
+
+-- this is a sql type of the function
+create or replace function calcbilling1(month int , year int) 
+returns table(fid int, lname varchar, totalHours bigint , price bigint) as
+$$
+
+	select Billing.fid, Billing.lname, sum(Billing.hours) as totalHours , sum(Billing.hours*lawyer.hbilling) as price from Billing   
+	inner join lawyer 
+	on Billing.lname = lawyer.lname
+	where Extract(month from Billing.bdate) >= month and Extract(year from Billing.bdate) = year
+	group by Billing.fid , Billing.lname;
+
+$$
+LANGUAGE sql;
+
+SELECT * FROM calcbilling1(1, 2015);
+-- calling like that will results all attributes in one column divided by commas.
+SELECT calcbilling1(1, 2015)  
+
 
 
 select * from Billing

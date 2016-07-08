@@ -19,4 +19,7 @@ where extract (month from sdate ) = 1 and extract (year from sdate ) = 2016
 )
 select cname, ttt.fid, sum (ttt.hbilling * ttt.hours) from ttt
 group by cname, ttt.fid
+
+
+
  
